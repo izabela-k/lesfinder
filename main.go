@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/izabela-k/lesfinder/db"
 	"github.com/izabela-k/lesfinder/users"
 
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,8 @@ import (
 
 func main() {
 	r := gin.Default()
+	r.Use(db.Postgres())
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",

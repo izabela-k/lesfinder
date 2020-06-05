@@ -22,6 +22,9 @@ func SignUpHandler(c *gin.Context) {
 		return
 	}
 
+	user := new(User)
+	user.CreateUser(data.Email, data.Password)
+
 	c.JSON(200, gin.H{
 		"message": "OK",
 	})

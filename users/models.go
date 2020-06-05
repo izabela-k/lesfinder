@@ -1,56 +1,24 @@
 package users
 
-import (
-	"time"
-)
+import "time"
 
 type User struct {
-	Id string
+	Id string `db:"id"`
 	Email string
 	Password string
 
-	CreatedAt time.Time
+	CreatedAt *time.Time
 	IsConfirmed bool
 	IsAdmin bool
 	IsBlocked bool
 	IsCompleted bool
 
-	Name string
-	BirthDate time.Time
-	Description string
-
-	Photos []Photo
-
-	Likes []Like
-	Liked []Like
-
-	Location
-	City string
-	LocationHilbertA string
-	LocationHilbertB string
+	Name string `dynamodbav:"omitempty"`
+	BirthDate *time.Time `dynamodbav:"omitempty"`
+	Description string `dynamodbav:"omitempty"`
 }
 
-type Location struct {
-	lat float64
-	lng float64
-}
-
-type Like struct {
-	CreatedAt time.Time
-	User
-}
-
-type Photo struct {
-	Id string
-	User
-	IsAvailable bool
-	OriginalFile string
-
-	Variants []PhotoVariant
-}
-
-type PhotoVariant struct {
-	File string
-	height int
-	width int
+type Token struct {
+	Token string
+	UserId string
 }
