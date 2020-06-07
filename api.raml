@@ -1,0 +1,64 @@
+#%AML 1.0
+title: Les-finder.com API documentation
+
+/sign-up/:
+  post:
+    description: Creates a user
+    body:
+      application/json
+        type: object
+        properties:
+          email: string
+          password: string
+          password2: string
+
+/get-token/:
+  post:
+    description: Get the user token
+    body:
+      application/json
+        type: object
+        properties:
+          email: string
+          password: string
+    responses:
+      200:
+        body:
+          application/json
+            example: |
+              {"token": "1c5780e713671c62333bb3066f5a4d5b1c5780e713671c62333bb3066f5a4d5b"}
+
+
+/me/:
+  get:
+    description: Get the current user
+    headers:
+      Authorization:
+        type: string
+    responses:
+      200:
+        body:
+          application/json
+            example: |
+              {
+                "name": "Marry Joe",
+                "photos": ["photo1, "photo2"]
+              }
+  patch:
+    description: Updates the current user
+    headers:
+      Authorization:
+        type: string
+    body:
+      application/json
+        type: object
+        properties:
+          name: string
+          description: string
+    responses:
+      200:
+        body:
+          application/json
+
+    photos/:
+      post:
