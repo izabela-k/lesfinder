@@ -11,7 +11,6 @@ import (
 
 
 func Postgres() gin.HandlerFunc {
-
 	conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
 
 	if err != nil {

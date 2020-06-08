@@ -1,11 +1,33 @@
 package main
 
 import (
-	"github.com/izabela-k/lesfinder/db"
-	"github.com/izabela-k/lesfinder/users"
+	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/izabela-k/lesfinder/db"
+	"github.com/izabela-k/lesfinder/users"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	m, err := migrate.New("file://migrations", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal("Cannot migrate database, ", err)
+	}
+
+	if err := m.Up(); err != nil {
+		log.Fatal(err)
+	}
+}
 
 func main() {
 	r := gin.Default()
